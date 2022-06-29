@@ -18,7 +18,7 @@ jobs:
           command: "echo Hello World > ~/output.txt"
       - persist_to_workspace:
           root: ~/
-          path: 
+          paths: 
             - output.txt
   print-output-file:
     docker:
