@@ -16,9 +16,9 @@ jobs:
       - checkout
       - run:
           name: "Save hello world putput"
-          command: "echo Hello World > workspace/output.txt"
+          command: "echo Hello World > ~/output.txt"
       - persist_to_workspace:
-          root: workspace
+          root: ~/
           path: output.txt
   print-output-file:
     docker:
@@ -28,7 +28,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: ~/
       - run:
           name: "cat workspace"
           command: "cat output.txt"
