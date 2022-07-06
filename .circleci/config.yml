@@ -27,7 +27,7 @@ jobs:
       - run:
           name: run playbook and configure server
           command: |
-            ansible-playbook -i inventory main-remote.yml
+            ansible-playbook main-remote.yml -i inventory
 
 workflows:
   say-hello-workflow:
