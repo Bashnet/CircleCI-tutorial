@@ -1,27 +1,20 @@
 version: 2.1
 
-commands:
-  print_pipeline_id:
-    steps:
-      - run:
-          name: "print workflow ID"
-          command: "$CIRCLE_WORKFLOW_ID"
-
 jobs:
-  print-id:
+  create-infrastructure:
     docker:
-      - image: cimg/base:stable
+      - image: amazon/aws-cli
     steps:
+      - checkout
       - run:
-          name: "print workflow ID"
-          command: "$CIRCLE_WORKFLOW_ID"
-      - run:
-          name: "job fail"
-          command: "echo the job has failed"
-          when: on_fail
-      
+          name: Create Cloudformation Stack
+          command: |
+            aws cloudformation deploy \
+              --template-file templaye.yml \
+              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+              --region us-east-1
 
 workflows:
   say-hello-workflow:
     jobs:
-      - print-id
+      - create-infrastructure
